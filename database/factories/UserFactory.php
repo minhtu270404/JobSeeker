@@ -23,12 +23,37 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $firstName = $this->faker->firstName('male');
+        $lastName = $this->faker->lastName;
+        
+        $emailSlug = Str::slug($lastName . $firstName, '');
+        $email = strtolower($emailSlug) . '@example.com';
+
+       
+        $phone = '0' . $this->faker->numberBetween(3, 9) . $this->faker->numberBetween(10000000, 99999999);
+
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'username'          => strtolower($emailSlug) . rand(10,99),
+            'phone'             => $phone,
+            'email'             => $email,
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'password'          => bcrypt('password'), 
+            'first_name'        => $firstName,
+            'last_name'         => $lastName,
+            'photo'             => null,
+            'address'           => $this->faker->address,
+            'gender'            => $this->faker->randomElement(['male', 'female']),
+            'birthday'          => $this->faker->date('Y-m-d', '2000-01-01'),
+            'is_active'         => $this->faker->boolean(90),
+            'is_delete'         => false,
+            'group_role'        => $this->faker->randomElement(['admin', 'user', 'editor']),
+            'otp_code'          => $this->faker->numerify('######'),
+            'otp_expires_at'    => now()->addMinutes(5),
+            'otp_attempts'      => $this->faker->numberBetween(0, 3),
+            'otp_context'       => $this->faker->randomElement(['register', 'login', 'reset_password']),
+            'last_login_ip'     => $this->faker->ipv4,
+            'last_login_at'     => now(),
+            'remember_token'    => Str::random(10),
         ];
     }
 

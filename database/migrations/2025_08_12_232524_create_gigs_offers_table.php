@@ -20,7 +20,7 @@ return new class extends Migration
 
 
             $table->unsignedBigInteger('contractor_id');
-            $table->foreign('contractor_id')->references('id')->on('contractors')->onDelete('cascade');
+            $table->foreign('contractor_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->integer('proposed_price_cents')->nullable();
             $table->date('proposed_deadline')->nullable();
