@@ -18,9 +18,25 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'username',
+        'phone',
         'email',
         'password',
+        'first_name',
+        'last_name',
+        'photo',
+        'address',
+        'gender',
+        'birthday',
+        'is_active',
+        'is_delete',
+        'group_role',
+        'otp_code',
+        'otp_expires_at',
+        'otp_attempts',
+        'otp_context',
+        'last_login_ip',
+        'last_login_at',
     ];
 
     /**
@@ -31,6 +47,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'otp_code',
     ];
 
     /**
@@ -43,6 +60,15 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'birthday' => 'date',
+            'is_active' => 'boolean',
+            'is_delete' => 'boolean',
+            'otp_expires_at' => 'datetime',
+            'last_login_at' => 'datetime',
         ];
+    }
+    public function apiLogs()
+    {
+        return $this->hasMany(ApiLog::class);
     }
 }
