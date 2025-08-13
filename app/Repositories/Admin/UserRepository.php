@@ -12,4 +12,9 @@ class UserRepository
             ->get();
         return $query;
     }
+    public function FindOnceUser(int $id)
+    {
+        $query = User::findOrFail($id);
+        return $query;
+    }
 }

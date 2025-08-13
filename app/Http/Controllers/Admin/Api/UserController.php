@@ -14,4 +14,9 @@ class UserController extends Controller
         $users = $userService->ListUser();
         return UserResource::collection($users);
     }
+     public function getOnceUserList(UserService $userService , int $id)
+    {
+        $users = $userService->ListOnceUser($id);
+        return new UserResource ($users);
+    }
 }
